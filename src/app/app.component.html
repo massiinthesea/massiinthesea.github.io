@@ -1,0 +1,28 @@
+<div nz-row nzJustify="center">
+    <div nz-col nzSpan="3">
+        <nz-switch [(ngModel)]="isDefaultTheme" (click)="toggleTheme()" nzCheckedChildren="Light"
+            nzUnCheckedChildren="Dark">
+        </nz-switch> Change theme
+    </div>
+    <div nz-col nzSpan="3">
+        <nz-switch [(ngModel)]="isDefaultTheme" (click)="toggleTheme()" nzCheckedChildren="Light"
+            nzUnCheckedChildren="Dark">
+        </nz-switch> Normalement select ici
+    </div>
+</div>
+<nz-layout>
+    <nz-space [nzSize]="25" nzDirection="vertical">
+        <nz-header *nzSpaceItem>
+            <ul nz-menu nzTheme="dark" nzMode="horizontal">
+                <nz-space [nzSize]="40">
+                    <img *nzSpaceItem src="../assets/logo/app-logo.png" alt="Transaction management">
+                    <li nz-menu-item *nzSpaceItem routerLink="/new-transaction">Submit a transaction</li>
+                </nz-space>
+                <li nz-menu-item routerLink="/transactions">List transactions</li>
+            </ul>
+        </nz-header>
+        <nz-content *nzSpaceItem>
+            <router-outlet></router-outlet>
+        </nz-content>
+    </nz-space>
+</nz-layout>

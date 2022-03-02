@@ -1,0 +1,40 @@
+<div nz-row nzJustify="start">
+    <div nz-col nzSpan="4" nzOffset="1">
+        <h2>Filtres ici</h2>
+
+        <!-- <nz-range-picker [nzSize]="size"></nz-range-picker> -->
+
+    </div>
+    <div nz-col nzSpan="15">
+        <nz-table #rowSelectionTable nzShowSizeChanger [nzData]="allTransactionsList"
+            (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+            <thead>
+                <tr>
+                    <th [(nzChecked)]="checked" [nzIndeterminate]="indeterminate"
+                        (nzCheckedChange)="onAllChecked($event)"></th>
+                    <th>Id</th>
+                    <th>Date</th>
+                    <th>Currency</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let transaction of rowSelectionTable.data">
+                    <td [nzChecked]="setOfCheckedId.has(transaction.id)"
+                        (nzCheckedChange)="onItemChecked(transaction.id, $event)">
+                    </td>
+                    <td>{{ transaction.id }}</td>
+                    <td>{{ transaction.creationDate | date:'dd.MM.yy HH:mm:ss' }}</td>
+                    <td>{{ transaction.amount.currency.symbol }} {{ transaction.amount.currency.code }}</td>
+                    <td>{{ transaction.amount.amount }}</td>
+                    <td>
+                        <button nz-button nz-popconfirm nzPopconfirmTitle="Delete this transaction ?"
+                            nzOkText="Yes" nzCancelText="No" (nzOnConfirm)="deleteTransaction(transaction.id)"><i
+                                nz-icon nzType="delete"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

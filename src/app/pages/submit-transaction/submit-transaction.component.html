@@ -1,0 +1,98 @@
+<div nz-row nzJustify="center">
+    <div nz-col nzSpan="8">
+        <nz-card>
+            <h3>Transaction Information</h3>
+            <form nz-form [nzLayout]="'horizontal'" [formGroup]="transactionForm" (ngSubmit)="submitForm()">
+
+                <!-- Internal Account To Debit -->
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="8" nzFor="debt-account" nzRequired>Internal Account To Debit
+                    </nz-form-label>
+                    <nz-form-control nzErrorTip="Please select an account to debit">
+                        <nz-select id="debt-account" name="debt-account" formControlName="accountToDebit">
+                            <nz-option *ngFor="let account of accountsToDebitList; let i=index" [nzValue]="account"
+                                [nzLabel]="account.accountNumber"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- Amount and currency -->
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="8" nzFor="amount" nzRequired>Amount</nz-form-label>
+                    <nz-form-control [nzSpan]="9" [nzValidateStatus]="transactionForm.controls['amount']"
+                        nzErrorTip="Please enter an amount">
+                        <nz-input-group [nzAddOnAfter]="addOnAfterTemplate">
+                            <input nz-input type="number" id="amount" name="amount" formControlName="amount" min="1" />
+                            <!-- TODO Mettre un vrai minimum -->
+                            <!-- <nz-input-number nz-input type="number" id="amount" name="amount" formControlName="amount" [nzMin]="1"></nz-input-number> -->
+
+                            <ng-template #addOnAfterTemplate>
+                                <nz-select [nzSpan]="20" id="amount" name="amount" formControlName="currency">
+                                    <nz-option *ngFor="let currency of allCurrenciesList; let i=index"
+                                        [nzValue]="currency" [nzLabel]="currency.code"></nz-option>
+                                </nz-select>
+                            </ng-template>
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- Fee paid by receiver -->
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="8" nzFor="fee-paid-by-receiver" nzRequired>Fee paid by receiver
+                    </nz-form-label>
+                    <nz-form-control>
+                        <nz-switch id="fee-paid-by-receiver" name="fee-paid-by-receiver"
+                            formControlName="feePaidByReceiver">
+                        </nz-switch>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- Destination account -->
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="8" nzFor="dest-account" nzRequired>Destination</nz-form-label>
+                    <nz-form-control nzErrorTip="Please select a destination account">
+                        <nz-select id="dest-account" name="dest-account" formControlName="destinationAccount">
+                            <nz-option *ngFor="let account of accountsToDebitList; let i=index" [nzValue]="account"
+                                [nzLabel]="account.accountNumber"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- Metadata nested group form -->
+                <nz-form-item formArrayName="metadata">
+                    <nz-form-label [nzSpan]="8" nzFor="todo" nzRequired>Metadata</nz-form-label>
+                    <nz-form-control [nzSpan]="15" nzErrorTip="Please add a metadata">
+                        <div *ngFor="let metadata of metadataFormArray.controls; let i=index">
+                            <div nz-row [nzGutter]="[23, 30]" nzJustify="space-around" [formGroupName]="i">
+                                <div nz-col nzSpan="10">
+                                    <input nz-input type="text" id="metadata-key" name="metadata-key"
+                                        formControlName="key" [placeholder]="'key #'+i" />
+                                </div>
+                                <div nz-col nzSpan="10">
+                                    <input nz-input type="text" id="metadata-value" name="metadata-value"
+                                        formControlName="value" [placeholder]="'value #'+i" />
+                                </div>
+                                <div nz-col nzSpan="3">
+                                    <button nz-button nzType="secondary" [disabled]="isMetaDataLineDeletable(i)"
+                                        (click)="removeMetaDataControl(i)"><i nz-icon nzType="delete"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-control [nzOffset]="0">
+                        <div nz-row nzJustify="end">
+                            <button nz-button (click)="resetForm()">Cancel</button>
+                            <button nz-button nzType="primary"
+                                [disabled]="!transactionForm.valid || metadataFormArray.controls.length<=1">Create
+                                transaction</button>
+                        </div>
+
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </nz-card>
+    </div>
+</div>
