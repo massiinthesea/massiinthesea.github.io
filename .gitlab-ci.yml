@@ -20,6 +20,20 @@ build:
                 - package-lock.json
         paths:
             - node_modules
+
+test:
+    image: markhobson/node-chrome:latest
+    stage: test
+    script:
+        - npm link @angular/cli@11.2.6
+        - npm test -- --browsers=ChromeHeadless --watch=false
+    cache:
+        key:
+            files:
+                - package-lock.json
+        paths:
+            - node_modules
+        policy: pull
 # lint:
 #   image: node:12-alpine
 #   stage: test
