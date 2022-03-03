@@ -25,7 +25,6 @@ install:
         paths:
             - node_modules/
             - dist/
-
 test:
     stage: test
     image: markhobson/node-chrome:latest
