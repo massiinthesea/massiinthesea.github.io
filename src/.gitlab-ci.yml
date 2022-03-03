@@ -1,0 +1,76 @@
+services:
+    - docker:dind
+
+stages:
+    - build
+    # - test
+    # - build
+    # - publish
+
+build:
+    stage: build
+    image: node:11-alpine
+    script:
+        - npm install
+    only:
+        - master
+    cache:
+        key:
+            files:
+                - package-lock.json
+        paths:
+            - node_modules
+# lint:
+#   image: node:12-alpine
+#   stage: test
+#   script:
+#     - npm link @angular/cli@11.2.6
+#     - ng lint
+#   cache:
+#     key:
+#       files:
+#         - package-lock.json
+#     paths:
+#       - node_modules
+#     policy: pull
+
+# test:
+#   image: markhobson/node-chrome:latest
+#   stage: test
+#   script:
+#     - npm link @angular/cli@11.2.6
+#     - npm test -- --browsers=ChromeHeadless --watch=false
+#   cache:
+#     key:
+#       files:
+#         - package-lock.json
+#     paths:
+#       - node_modules
+#     policy: pull
+
+# build_image:
+#   image: node:12-alpine
+#   stage: build
+#   script:
+#     - npm link @angular/cli@11.2.6
+#     - npm run build
+#   artifacts:
+#     paths:
+#       - $CI_PROJECT_DIR/dist
+#   cache:
+#     key:
+#       files:
+#         - package-lock.json
+#     paths:
+#       - node_modules
+#     policy: pull
+
+# push-docker-registry:
+#   image: docker:latest
+#   stage: publish
+#   only:
+#     - master
+#   script:
+#     - docker build -t registry.gitlab.com/chikaslocalhost/angular-ci-cd .
+#     - docker login -u chikaslocalhost -p $CI_BUILD_TOKEN registry.gitlab.com
+#     - docker push registry.gitlab.com/chikaslocalhost/angular-ci-cd
