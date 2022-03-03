@@ -35,19 +35,21 @@
                         "styles": [
                             "src/styles/styles.less",
                             {
-                              "input": "src/styles/default.less",
-                              "bundleName": "default",
-                              "inject": false
+                                "input": "src/styles/default.less",
+                                "bundleName": "default",
+                                "inject": false
                             },
                             {
-                              "input": "src/styles/dark.less",
-                              "bundleName": "dark",
-                              "inject": false
+                                "input": "src/styles/dark.less",
+                                "bundleName": "dark",
+                                "inject": false
                             }
-                          ],
-                          "stylePreprocessorOptions": {
-                            "includePaths": ["src/styles/themes"]
-                          },
+                        ],
+                        "stylePreprocessorOptions": {
+                            "includePaths": [
+                                "src/styles/themes"
+                            ]
+                        },
                         "scripts": []
                     },
                     "configurations": {
@@ -109,8 +111,17 @@
                             "src/assets"
                         ],
                         "styles": [
-                            "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-                            "src/styles/styles.scss"
+                            "src/styles/styles.less",
+                            {
+                                "input": "src/styles/default.less",
+                                "bundleName": "default",
+                                "inject": false
+                            },
+                            {
+                                "input": "src/styles/dark.less",
+                                "bundleName": "dark",
+                                "inject": false
+                            }
                         ],
                         "scripts": []
                     }

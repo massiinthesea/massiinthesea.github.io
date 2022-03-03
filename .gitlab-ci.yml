@@ -20,37 +20,6 @@ install:
                 - package-lock.json
         paths:
             - node_modules
-        policy: pull
-
-# build_image:
-#     image: node:11-alpine
-#     stage: build
-#     script:
-#         - npm link @angular/cli@11.2.6
-#         - npm run build
-#     artifacts:
-#         paths:
-#             - $CI_PROJECT_DIR/dist
-#     cache:
-#         key:
-#             files:
-#                 - package-lock.json
-#         paths:
-#             - node_modules
-#         policy: pull
-# lint:
-#   image: node:12-alpine
-#   stage: test
-#   script:
-#     - npm link @angular/cli@11.2.6
-#     - ng lint
-#   cache:
-#     key:
-#       files:
-#         - package-lock.json
-#     paths:
-#       - node_modules
-#     policy: pull
 
 test:
     image: markhobson/node-chrome:latest
@@ -64,8 +33,7 @@ test:
                 - package-lock.json
         paths:
             - node_modules
-        policy: pull
-
+            
 build:
     image: node:11-alpine
     stage: build
@@ -81,7 +49,7 @@ build:
                 - package-lock.json
         paths:
             - node_modules
-        policy: pull
+
 # push-docker-registry:
 #   image: docker:latest
 #   stage: publish
